@@ -11,7 +11,7 @@ x, y, z = 0, 0, 0
 div1 = 0
 x_max, y_max, z_max = 40, 40, 40
 d1 = 5
-qd = 0
+qd, q1, q2, q3, q4 = 0, 0, 0, 0, 0
 
 print("Introduce los valores de los ejes de coordenadas: ")
 x = float(input())
@@ -28,7 +28,12 @@ while (float(x) >= x_max or float(y) >= y_max or float(z) >= z_max):
 else:
 
     #primera función geométrica
-    q1rad = math.atan(y / z) #valor del arcotangente en radianes
+    #q1rad = math.atan(y / z) #valor del arcotangente en radianes
+    #q1 = math.degrees(q1rad)
+    r1 = math.sqrt(pow(x, 2) + pow(y, 2))
+    sin1 = y / r1
+    cos1 = x / r1
+    q1rad = math.atan2(sin1, cos1)
     q1 = math.degrees(q1rad)
     print("q1rad:", q1rad)
     print("q1:", q1)
@@ -36,23 +41,52 @@ else:
     #tercera función geométrica
     cos3 = (pow(x, 2) + pow(y, 2) + pow(z, 2) - pow(l2, 2) - pow(l3, 2)) / (2 * l2 * l3)
     sen3 = math.sqrt(abs(1 - pow(cos3, 2)))
-    q3 = math.degrees(math.atan(sen3 / cos3)) #ángulo en grados
-    q3rad = math.atan(sen3 / cos3) #ángulo en radianes
+    q3 = math.degrees(math.atan2(sen3, cos3)) #ángulo en grados
+    q3rad = math.atan2(sen3, cos3) #ángulo en radianes
     print("q3rad:", q3rad)
     print("q3:", q3)
 
     #segunda función geométrica
-    alfa = math.atan((l3 * sen3) / (l2 + (l3 * cos3)))
-    r = math.sqrt(pow(float(x), 2) + pow(float(y), 2))
-    beta = math.atan(z / r)
-    q2rad = alfa - beta
-    print("q2rad:", q2rad)
-    q2 = math.degrees(q2rad)
-    print("q2:", q2)
+    #alfa = math.atan((l3 * sen3) / (l2 + (l3 * cos3)))
+    #r = math.sqrt(pow(float(x), 2) + pow(float(y), 2))
+    #beta = math.atan(z / r)
+    #q2rad = alfa - beta
+    #print("q2rad:", q2rad)
+    #q2 = math.degrees(q2rad)
+    #print("q2:", q2)
 
+    r2 = math.sqrt(pow(x, 2) + pow(y, 2) + pow(z - l1, 2))
+    cos_beta = (pow(l3, 2) - pow(r2, 2) + pow(l2, 2)) / ((-1) * 2 * r2 * l2)
+    sin_beta = math.sqrt(1 - pow(cos_beta, 2))
+    cos_alfa = r1 / r2
+    sin_alfa = (l1 - z) / r2
+    beta = math.atan2(sin_beta, cos_beta)
+    alfa = math.atan2(sin_alfa, cos_alfa)
+    # codo arriba
+    q2r_rad = alfa + beta
+    print("q2 codo arriba radianes: ", q2r_rad)
+    q2r = math.degrees(q2r_rad)
+    print("q2 codo arriba grados: ", q2r)
+    # codo abajo
+    q2j_rad = alfa - beta
+    print("q2 codo abajo radianes: ", q2j_rad)
+    q2j = math.degrees(q2j_rad)
+    print("q2 codo abajo grados: ", q2j)
+
+    #tercera función geométrica
+    #codo arriba
+    q3r_rad = ((3 * math.pi)/2) - beta
+    print("q3 codo arriba radianes: ", q3r_rad)
+    q3r = math.degrees(q3r_rad)
+    print("q3 codo arriba grados: ", q3r)
+    #codo abajo
+    q3j_rad = beta - (math.pi / 2)
+    print("q3 codo abajo radianes: ", q3j_rad)
+    q3j = math.degrees(q3j_rad)
+    print("q3 codo abajo grados: ", q3j)
     #cuarta función geométrica con ángulo de cabeceo
-    q4i = qd + q2 + q3
-    print("q4i: ", q4i)
+    #q4i = qd + q2 + q3
+    #print("q4i: ", q4i)
     #cinemática directa
 
     q1d = float(input("Ángulo 1 en grados:"))
