@@ -28,8 +28,6 @@ while (float(x) >= x_max or float(y) >= y_max or float(z) >= z_max):
 else:
 
     #primera función geométrica
-    #q1rad = math.atan(y / z) #valor del arcotangente en radianes
-    #q1 = math.degrees(q1rad)
     r1 = math.sqrt(pow(x, 2) + pow(y, 2))
     sin1 = y / r1
     cos1 = x / r1
@@ -40,21 +38,16 @@ else:
 
     #tercera función geométrica
     cos3 = (pow(x, 2) + pow(y, 2) + pow(z, 2) - pow(l2, 2) - pow(l3, 2)) / (2 * l2 * l3)
+    print("cos3: ", cos3)
     sen3 = math.sqrt(abs(1 - pow(cos3, 2)))
-    q3 = math.degrees(math.atan2(sen3, cos3)) #ángulo en grados
+    q31 = math.degrees(math.atan2(sen3, cos3)) #ángulo en grados
+    q32 = (-1) * math.degrees(math.atan2(sen3, cos3)) #ángulo en graods
     q3rad = math.atan2(sen3, cos3) #ángulo en radianes
-    print("q3rad:", q3rad)
-    print("q3:", q3)
+    print("q3rad: ", q3rad)
+    print("q31: ", q31)
+    print("q32: ", q32)
 
-    #segunda función geométrica
-    #alfa = math.atan((l3 * sen3) / (l2 + (l3 * cos3)))
-    #r = math.sqrt(pow(float(x), 2) + pow(float(y), 2))
-    #beta = math.atan(z / r)
-    #q2rad = alfa - beta
-    #print("q2rad:", q2rad)
-    #q2 = math.degrees(q2rad)
-    #print("q2:", q2)
-
+    #segunda función geométrica --> NO DA VALOR
     r2 = math.sqrt(pow(x, 2) + pow(y, 2) + pow(z - l1, 2))
     cos_beta = (pow(l3, 2) - pow(r2, 2) + pow(l2, 2)) / ((-1) * 2 * r2 * l2)
     sin_beta = math.sqrt(1 - pow(cos_beta, 2))
@@ -73,22 +66,7 @@ else:
     q2j = math.degrees(q2j_rad)
     print("q2 codo abajo grados: ", q2j)
 
-    #tercera función geométrica
-    #codo arriba
-    q3r_rad = ((3 * math.pi)/2) - beta
-    print("q3 codo arriba radianes: ", q3r_rad)
-    q3r = math.degrees(q3r_rad)
-    print("q3 codo arriba grados: ", q3r)
-    #codo abajo
-    q3j_rad = beta - (math.pi / 2)
-    print("q3 codo abajo radianes: ", q3j_rad)
-    q3j = math.degrees(q3j_rad)
-    print("q3 codo abajo grados: ", q3j)
-    #cuarta función geométrica con ángulo de cabeceo
-    #q4i = qd + q2 + q3
-    #print("q4i: ", q4i)
     #cinemática directa
-
     q1d = float(input("Ángulo 1 en grados:"))
     q1d_rad = math.radians(q1d)
     q2d = float(input("Ángulo 2 en grados:"))
@@ -102,8 +80,8 @@ else:
     alfa1 = math.degrees(alfa1_rad)
 
     #Matriz de transformación de la Base
-    A01 = np.array([[math.cos(q1d_rad), 0, math.sin(math.pi/2)*math.sin(q1d_rad), 0],
-                    [math.sin(q1d_rad), 0, (-1)*math.sin(math.pi/2)*math.cos(q1d_rad), 0],
+    A01 = np.array([[math.cos(q1d_rad), 0, math.sin(alfa1_rad)*math.sin(q1d_rad), 0],
+                    [math.sin(q1d_rad), 0, (-1)*math.sin(alfa1_rad)*math.cos(q1d_rad), 0],
                     [0, 1, 0, d1],
                     [0, 0, 0, 1]])
     print("A01=", A01)
