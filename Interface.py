@@ -19,9 +19,9 @@ angle.set(0)
 angle.place(bordermode=OUTSIDE)
 
 B_ON = Button(root, text='Inicio')
-B_ON.place(bordermode=INSIDE)
+B_ON.place(x=250, y=20)
 B_OFF = Button(root, text='Final')
-B_OFF.place()
+B_OFF.place(x=300, y=20)
 
 #pantalla de inicio
 def widgets(self):
