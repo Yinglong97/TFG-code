@@ -13,7 +13,7 @@ x_max, y_max, z_max = 40, 40, 40
 d1 = 5
 qd, q1, q2, q3, q4 = 0, 0, 0, 0, 0
 
-print("Introduce los valores de los ejes de coordenadas: ")
+print("Valores coordenadas: ")
 x = float(input())
 y = float(input())
 z = float(input())
@@ -21,7 +21,7 @@ print(x, y, z)
 
 while (float(x) >= x_max or float(y) >= y_max or float(z) >= z_max):
     print("Valores fuera de rango")
-    print("Introduce los valores de los ejes de coordenadas: ")
+    print("Valores coordenadas: ")
     x = float(input())
     y = float(input())
     z = float(input())
@@ -125,3 +125,5 @@ else:
     print("q4rad:", q4radi)
     q4 = math.degrees(q4radi)
     print("q4:", q4)
+
+    #coordenadas de la base
