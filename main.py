@@ -105,6 +105,7 @@ else:
     print("A34=", A34)
     #Matriz de transformación homogénea Base-Muñeca
     A02 = np.dot(A01, A12)
+    print("A02=", A02)
     A03 = np.dot(A02, A23)
     print("A03=", A03)
     A04 = np.dot(A03, A34)
@@ -127,3 +128,12 @@ else:
     print("q4:", q4)
 
     #coordenadas de la base
+    #Matriz de transformación homogénea Muéca-Base (Matrices inversas)
+    A02 = np.dot(A01, A12)
+    A03 = np.dot(A02, A23)
+    print("A03=", A03)
+    A04 = np.dot(A03, A34)
+    print("A04=", A04)
+    inversa = np.linalg.inv(A02)
+    identidad = np.dot(A02, inversa)
+    print("identidad =", identidad)
