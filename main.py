@@ -1,4 +1,6 @@
 import math
+
+import fontTools.misc.plistlib
 import numpy
 import numpy as np
 import sympy
@@ -129,11 +131,14 @@ else:
 
     #coordenadas de la base
     #Matriz de transformación homogénea Muéca-Base (Matrices inversas)
-    A02 = np.dot(A01, A12)
-    A03 = np.dot(A02, A23)
-    print("A03=", A03)
-    A04 = np.dot(A03, A34)
-    print("A04=", A04)
-    inversa = np.linalg.inv(A02)
-    identidad = np.dot(A02, inversa)
-    print("identidad =", identidad)
+    A40 = np.dot(np.linalg.inv(A34), np.linalg.inv(A23))
+    print("A40=", A40)
+    A30 = np.dot(A40, np.linalg.inv(A12))
+    print("A30=", A30)
+    A20 = np.dot(A30, np.linalg.inv(A01))
+    print("A20=", A20)
+
+
+    #inversa = np.linalg.inv(A02)
+    #identidad = np.dot(A02, inversa)
+    #print("identidad =", identidad)

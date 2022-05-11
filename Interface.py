@@ -2,10 +2,11 @@ import tkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-import serial
+#import serial
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
+from tkinter import messagebox, ttk
 
 
 root = tk.Tk() #crea ventana principal e inicia intérprete Tcñ y TK
@@ -83,6 +84,16 @@ muñeca = Scale(root, variable=var4, orient = HORIZONTAL, from_= 0, to = 180, le
 muñeca.set(0) #pos home dexarm (AÑADIR)
 muñeca.place(x=220, y=270)
 
+#selección velocidad
+#def selection_changed(event):
+    #selection = velocidad.get()
+    #messagebox.showinfo(tittle="Nuevo elemento seleccionado", message=selection)
+
+marco_vel = LabelFrame(text="Velocidad: ", padx=0, pady=0).place(height=50 , width=165 , x=10 , y=230 )
+velocidad = ttk.Combobox(values=["Lenta", "Rápida"])
+velocidad.place(x=20, y=250)
+#velocidad.bind("<<ComboboxSelected>>", selection_changed)
+
 
 #pantalla de inicio
 def widgets(self):
@@ -92,7 +103,7 @@ def widgets(self):
     frame.pack()
 
 #Calibración
-calibracion = Button(root, text="Calibración", height=1, width=10, bg="salmon1").place(x=20, y=200)
+calibracion = Button(root, text="Calibración", height=1, width=10, bg="salmon1").place(x=20, y=190)
 #Comandos
 
 #Movimientos Predeterminados
