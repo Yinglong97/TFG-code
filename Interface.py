@@ -8,12 +8,14 @@ import matplotlib.animation as animation
 from matplotlib import style
 from tkinter import messagebox, ttk
 from tkinter import messagebox as mb
+import time
 
 root = tk.Tk()  # crea ventana principal e inicia intérprete Tcl y TK
 root.title("Brazo robótico 4 grados de libertad")
 root.config(width=630, height=520)
+root.resizable(False, False)
 
-# Marcha/Paro/Reset
+# MARHCA/PARO/RESET
 marco_p = LabelFrame(text="Ejecución programa", padx=0, pady=0).place(height=170, width=150, x=10, y=0)
 marcha = Button(root, text="START", height=1, width=5, bg="Light Green").place(x=20, y=40)
 et_marcha = Label(text="Inicio").place(x=80, y=40)
@@ -22,7 +24,7 @@ et_paro = Label(text="Paro").place(x=80, y=80)
 reset = Button(root, text="RESET", height=1, width=5, bg="Light Blue").place(x=20, y=120)
 et_reset = Label(text="Reestablecer").place(x=80, y=120)
 
-# Ventana Reset
+# VENTANA RESET
 # messasge = MessageBox.showinfo("Reset", "El programa se reestablecerá a los valores predeterminados\n ¿Desea continuar?")
 
 # Marcha/Paro/Reset Frames
@@ -30,24 +32,80 @@ Marchaf = Frame(bd=1, relief="groove", background="white").place(height=25, widt
 Parof = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=165, y=80)
 Resetf = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=165, y=120)
 
-# coordenadas cartesianas
+# COORDENADAS CARTESIANAS
+
+valor_x = 0
+limit = 100
+release = TRUE
+
+#def click_xpos():
+#    global valor_x
+#    while not Xpos.
+#            release and int(marcox.get()) < limit:
+#        time.sleep(0.1)
+#        marcox.set((str(int(marcox.get()))+1))
+
+#def click_xneg():
+
+#def click_ypos():
+
+#def click_yneg():
+
+#def click_zpos():
+
+#def click_yneg():
+
+incremento = 0
+
+def update_spinboxes_increment(inc):
+    #Iterate over all spinBoxes to update the increment
+    for spinbox in spinboxes.values():
+        spinbox.config(increment=inc)
+
+
+def selection(event=None):
+    seleccion = precision_box.current()
+    incremento = 0
+    if seleccion == 0:
+        incremento = 1
+    if seleccion == 1:
+        incremento = 0.5
+    if seleccion == 2:
+        incremento = 0.05
+    update_spinboxes_increment(incremento)
+
 marco1 = LabelFrame(text="Coordenadas Herramienta: ", padx=0, pady=0).place(height=220, width=170, x=450, y=0)
 label_precision = Label(text="Precisión").place(x=470, y=20)
-precision = ttk.Combobox(values=[".", ".0", ".00"], width=5).place(x=540, y=20)
-Xpos = Button(root, text='X+', bg="LightBlue1").place(x=570, y=70)
-Xneg = Button(root, text='X-', bg="light sky blue").place(x=470, y=70)
-coord_x = Label(text='Eje X').place(x=515, y=50)
-marco_x = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=515, y=70)
-Ypos = Button(root, text='Y+', bg="LightBlue1").place(x=570, y=120)
-Yneg = Button(root, text='Y-', bg="light sky blue").place(x=470, y=120)
-coord_y = Label(text='Eje Y').place(x=515, y=100)
-marco_y = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=515, y=120)
-Zpos = Button(root, text='Z+', bg="LightBlue1").place(x=570, y=170)
-Zneg = Button(root, text='Z-', bg="light sky blue").place(x=470, y=170)
-coord_z = Label(text='Eje Z').place(x=515, y=150)
-marco_z = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=515, y=170)
+precision_box = ttk.Combobox(values=[".", ".0", ".00"], width=5, postcommand=selection)
+precision_box.place(x=540, y=20)
+precision_box.bind('<<ComboboxSelected>>', selection)
 
-#Ir a
+#Build and locate spinboxes
+spinboxes = {}
+spinboxes['xpos'] = Spinbox(from_=0, to=500, width=5, increment=incremento)
+spinboxes['xpos'].place(x=550, y=70)
+
+spinboxes['xneg'] = Spinbox(from_=-500, to=0, width=5, increment=incremento)
+spinboxes['xneg'].place(x=470, y=70)
+
+spinboxes['Ypos'] = Spinbox(from_=0, to=500, width=5, increment=incremento)
+spinboxes['Ypos'].place(x=550, y=120)
+
+spinboxes['Yneg'] = Spinbox(from_=-500, to=0, width=5, increment=incremento)
+spinboxes['Yneg'].place(x=470, y=120)
+
+spinboxes['Zpos'] = Spinbox(from_=0, to=500, width=5, increment=incremento)
+spinboxes['Zpos'].place(x=550, y=170)
+
+spinboxes['Zneg'] = Spinbox(from_=-500, to=0, width=5, increment=incremento)
+spinboxes['Zneg'].place(x=470, y=170)
+
+#Build and Locate labels
+coord_x = Label(text='Eje X').place(x=515, y=70)
+coord_y = Label(text='Eje Y').place(x=515, y=120)
+coord_z = Label(text='Eje Z').place(x=515, y=170)
+
+# IR A
 ir_a = LabelFrame(text="Ir a: ", padx=0, pady=0).place(height=180, width=170, x=450, y=240)
 lab_pos_x = Label(text="Posición X:").place(x=460, y=260)
 data_pos_x = tk.StringVar()
@@ -66,38 +124,38 @@ entry_pos_z = Entry(root).place(height=25, width=35, x=540, y=340)
 #entry_pos_z = ttk.Entry(pos_z, textvariable=data_pos_z)
 go = Button(root, text="Ir", bg="Yellow Green").place(x=520, y=380)
 
-# Articulaciones
+# ARTICULACIONES
 marco2 = LabelFrame(text="Movimiento Articulaciones: ", padx=0, pady=0).place(height=360, width=230, x=210, y=0)
 
-# Información servomotor
+# INFORMACIÓN SERVOMOTOR
 var = DoubleVar
 angle = Scale(root, variable=var, orient=HORIZONTAL, from_=-90, to=90, length=200, width=20, cursor='dot',
               troughcolor='gray', highlightcolor='white', label='Servomotor angle')
 angle.set(0)
 angle.place(x=220, y=20)
 
-# Articulación1
+# ARTICULACIÓN 1
 var1 = DoubleVar
 cintura = Scale(root, variable=var1, orient=HORIZONTAL, from_=0, to=180, length=200, width=20, cursor='dot',
                 troughcolor='gray', highlightcolor='white', label='Cintura(Q1)')
 cintura.set(0)  # pos home dexarm (AÑADIR)
 cintura.place(x=220, y=80)
 
-# Articulación 2
+# ARTICULACIÓN 2
 var2 = DoubleVar
 hombro = Scale(root, variable=var2, orient=HORIZONTAL, from_=0, to=180, length=200, width=20, cursor='dot',
                troughcolor='gray', highlightcolor='white', label='Hombro(Q2)')
 hombro.set(0)  # pos home dexarm (AÑADIR)
 hombro.place(x=220, y=140)
 
-# Articulación 3
+# ARTICULACIÓN 3
 var3 = DoubleVar
 codo = Scale(root, variable=var3, orient=HORIZONTAL, from_=0, to=180, length=200, width=20, cursor='dot',
              troughcolor='gray', highlightcolor='white', label='Codo(Q3)')
 codo.set(0)  # pos home dexarm (AÑADIR)
 codo.place(x=220, y=210)
 
-# Articulación 4
+# ARTICULACIÓN 4
 var4 = DoubleVar
 muñeca = Scale(root, variable=var4, orient=HORIZONTAL, from_=0, to=180, length=200, width=20, cursor='dot',
                troughcolor='gray', highlightcolor='white', label='Muñeca(Q4)')
@@ -120,10 +178,10 @@ velocidad = ttk.Combobox(values=["Lenta", "Rápida"]).place(x=252.5, y=390)
 #    frame = Frame(self.root)
 #    frame.pack()
 
-#Trayectorias
+# TRAYECTORIAS
 marco_movs = LabelFrame(text="Trayectorias: ", padx=0, pady=0).place(height=250, width=150, x=10, y=180)
 
-# Movimiento Lineal
+# MOVIMIENTO LINEAL
 def openwindow1():
     window1 = Toplevel(root)
     window1.title("Movimiento Lineal")
@@ -161,7 +219,8 @@ movlineal_frame = Frame(bd=1, relief="groove", background="white").place(height=
 #
 #
 #linealmove = MovLineal()
-# Movimiento Circular
+
+# MOVIMIENTO CIRCULAR
 def openwindow2():
     window2 = Toplevel(root)
     window2.title("Movimiento Circular")
@@ -181,7 +240,7 @@ def openwindow2():
 movcirc = Button(root, text="Movimiento Circular", height=1, width=15, bg="khaki", command = openwindow2).place(x=20, y=295)
 movcirc_frame = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=165, y=295)
 
-# Cuadrado
+# CUADRADO
 def openwindow3():
     window3 = Toplevel(root)
     window3.title("Movimiento Lineal")
@@ -201,7 +260,7 @@ def openwindow3():
 cuadrado = Button(root, text="Cuadrado", height=1, width=15, bg="khaki", command = openwindow3).place(x=20, y=335)
 cuadrado_frame = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=165, y=335)
 
-# Círculo
+# CÍRCULO
 def openwindow4():
     window4 = Toplevel(root)
     window4.title("Círculo")
@@ -221,7 +280,7 @@ def openwindow4():
 circulo = Button(root, text="Círculo", height=1, width=15, bg="khaki", command = openwindow4).place(x=20, y=375)
 circulo_frame = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=165, y=375)
 
-# Calibración
+# CALIBRACIÓN
 def openwindow5():
     window5 = Toplevel(root)
     window5.title("Círculo")
@@ -241,7 +300,7 @@ def openwindow5():
 calibracion = Button(root, text="Calibración", height=1, width=15, bg="khaki", command=openwindow5).place(x=20, y=215)
 calibracion_frame = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=165, y=215)
 
-# Posición actual
+# POSICIÓN ACTUAL
 pos = LabelFrame(text="Posición actual", padx=0, pady=0).place(height=70, width=610, x=10, y=440)
 pos_x1 = Label(text='Eje X').place(x=35, y=470)
 marco_posx = Frame(bd=1, relief="groove", background="white").place(height=25, width=35, x=70, y=470)
