@@ -7,6 +7,7 @@ import sympy
 import sympy as sym
 
 #definición variables
+
 l1, l2 , l3 = 5, 10, 10
 l4: float = 5
 x, y, z = 0, 0, 0
@@ -142,3 +143,4 @@ else:
     #inversa = np.linalg.inv(A02)
     #identidad = np.dot(A02, inversa)
     #print("identidad =", identidad)
+
