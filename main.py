@@ -119,16 +119,21 @@ else:
     D = A03[2][3]*A34[3][3]
     A = A03[2][0]*l2
     B = A03[2][1]*l4
-    ang = math.atan(A/B)
-    arg = (pow(A, 2))+(pow(B, 2))
-    R = pow(arg, 0.5)
-    num4: float = (float(z) - C - D)*float(R)
-    frac4 = num4/arg
-    resf_rac4 = sympy.asin(frac4)
-    q4radi = resf_rac4 - ang
-    print("q4rad:", q4radi)
-    q4 = math.degrees(q4radi)
-    print("q4:", q4)
+    E = z - C - D
+    num1 = (-1)*2*E*B
+    num2 = pow(((-1)*2*E*B), 2)
+    num3 = 4*((-1)*pow(A, 2) - pow(B, 2))*(pow(A, 2)-pow(E, 2))
+    den1 = 2*((-1)*pow(A, 2)-pow(B, 2))
+    senx1 = (num1 + math.sqrt(num2-num3)) / den1
+    senx2 = (num1 - math.sqrt(num2-num3)) / den1
+    x1rad = math.asin(senx1)
+    print("x1rad:", x1rad)
+    x1deg = math.degrees(x1rad)
+    print("x1deg:", x1deg)
+    x2rad = math.asin(senx2)
+    print("x2rad:", x2rad)
+    x2deg = math.degrees(x2rad)
+    print("x2deg:", x2deg)
 
     #coordenadas de la base
     #Matriz de transformación homogénea Muéca-Base (Matrices inversas)
