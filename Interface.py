@@ -8,7 +8,7 @@ from tkinter import messagebox as mb
 import time
 
 root = tk.Tk()  # crea ventana principal e inicia intérprete Tcl y TK
-root.title("Brazo robótico 4 grados de libertad + 1")
+root.title("Brazo robótico 4 grados de libertad + 1 (5GDL)")
 root.config(width=630, height=540)
 root.resizable(False, False)
 
@@ -56,40 +56,29 @@ def selection(event=None):
         incremento = 1
     if seleccion == 1:
         incremento = 0.1
-    if seleccion == 2:
-        incremento = 0.01
     update_spinboxes_increment(incremento)
 
 marco1 = LabelFrame(frame1, text="Coordenadas Herramienta: ", padx=0, pady=0).place(height=200, width=185, x=10, y=230)
 label_precision = Label(frame1, text="Precisión").place(x=40, y=255)
-precision_box = ttk.Combobox(frame1, values=[".", ".0", ".00"], width=5, postcommand=selection)
+precision_box = ttk.Combobox(frame1, values=[".", ".0"], width=5, postcommand=selection)
 precision_box.place(x=100, y=255)
 precision_box.bind('<<ComboboxSelected>>', selection)
 
 #Build and locate spinboxes
 spinboxes = {}
 spinboxes['xpos'] = Spinbox(frame1, from_=0, to=500, width=7, increment=incremento)
-spinboxes['xpos'].place(x=125, y=295)
-
-spinboxes['xneg'] = Spinbox(frame1, from_=-500, to=0, width=7, increment=incremento)
-spinboxes['xneg'].place(x=20, y=295)
+spinboxes['xpos'].place(x=100, y=295)
 
 spinboxes['Ypos'] = Spinbox(frame1, from_=0, to=500, width=7, increment=incremento)
-spinboxes['Ypos'].place(x=125, y=345)
-
-spinboxes['Yneg'] = Spinbox(frame1, from_=-500, to=0, width=7, increment=incremento)
-spinboxes['Yneg'].place(x=20, y=345)
+spinboxes['Ypos'].place(x=100, y=345)
 
 spinboxes['Zpos'] = Spinbox(frame1, from_=0, to=500, width=7, increment=incremento)
-spinboxes['Zpos'].place(x=125, y=395)
-
-spinboxes['Zneg'] = Spinbox(frame1, from_=-500, to=0, width=7, increment=incremento)
-spinboxes['Zneg'].place(x=20, y=395)
+spinboxes['Zpos'].place(x=100, y=395)
 
 #Build and Locate labels
-coord_x = Label(frame1, text='Eje X').place(x=85, y=295)
-coord_y = Label(frame1, text='Eje Y').place(x=85, y=345)
-coord_z = Label(frame1, text='Eje Z').place(x=85, y=395)
+coord_x = Label(frame1, text='Eje X').place(x=40, y=295)
+coord_y = Label(frame1, text='Eje Y').place(x=40, y=345)
+coord_z = Label(frame1, text='Eje Z').place(x=40, y=395)
 
 # IR A
 #IR A COORDENADAS ARTICULARES
@@ -130,12 +119,12 @@ go2 = Button(frame1, text="Ir", bg="Yellow Green").place(x=520, y=390)
 # ARTICULACIONES
 marco2 = LabelFrame(frame1, text="Movimiento Articulaciones: ", padx=0, pady=0).place(height=360, width=230, x=210, y=10)
 
-# INFORMACIÓN SERVOMOTOR
-var = DoubleVar
-angle = Scale(frame1, variable=var, orient=HORIZONTAL, from_=0, to=180, length=200, width=20, cursor='dot',
-              troughcolor='gray', highlightcolor='white', label='Servomotor angle')
-angle.set(90)
-angle.place(x=220, y=30)
+# INFORMACIÓN SERVOMOTORES
+
+lab_q1 = Label(frame1, text="Q1: 180º").place(x=250, y=30)
+lab_q2 = Label(frame1, text="Q2: 90º").place(x=250, y=60)
+lab_q3 = Label(frame1, text="Q3: -90º").place(x=350, y=30)
+lab_q4 = Label(frame1, text="Q4: 180").place(x=350, y=60)
 
 # ARTICULACIÓN 1
 var1 = DoubleVar
